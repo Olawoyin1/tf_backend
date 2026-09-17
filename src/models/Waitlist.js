@@ -18,7 +18,7 @@ const waitlistSchema = new mongoose.Schema(
     interest: {
       type: String,
       required: [true, 'Interest is required'],
-      enum: ['business', 'talent', 'both', 'practising'],
+      trim: true,
     },
     company: {
       type: String,
