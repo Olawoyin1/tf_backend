@@ -40,7 +40,10 @@ router.post('/', async (req, res) => {
       entry.confirmationSent = true;
       await entry.save();
     } catch (emailErr) {
-      console.error('[Email Failed — Registration still succeeded]', emailErr.message);
+      console.error('[Email Failed] Message:', emailErr.message);
+      console.error('[Email Failed] RESEND_API_KEY present:', !!process.env.RESEND_API_KEY);
+      console.error('[Email Failed] FROM_EMAIL:', process.env.FROM_EMAIL);
+      console.error('[Email Failed] Stack:', emailErr.stack);
     }
 
     return res.status(201).json({
