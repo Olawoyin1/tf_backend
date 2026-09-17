@@ -13,7 +13,7 @@ async function sendConfirmationEmail({ fullName, email, position }) {
 
   const NEWSLETTER_URL = 'https://talentfactoryhq.substack.com';
   const COMMUNITY_URL  = 'https://chat.whatsapp.com/Gg3pCbWCa6iDlV53deSqBL?s=cl&p=a&mlu=4&ilr=4';
-  const LOGO_URL       = 'https://talent-factory-tau.vercel.app/logos/logo-1.svg';
+  const LOGO_URL       = 'https://res.cloudinary.com/dunid4t4g/image/upload/v1789654478/icon-main_aukejr.png';
 
   const { data, error } = await resend.emails.send({
     from: process.env.FROM_EMAIL || 'TalentFactory HQ <contact@talentfactoryhq.com>',
