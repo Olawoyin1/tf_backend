@@ -1,11 +1,13 @@
 const nodemailer = require('nodemailer');
 
-// Create Gmail transporter
+// Create Yahoo transporter
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.mail.yahoo.com',
+  port: 465,
+  secure: true,
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_APP_PASSWORD,
   },
 });
 
@@ -20,7 +22,7 @@ async function sendConfirmationEmail({ fullName, email, position }) {
   const firstName = fullName.split(' ')[0];
 
   const mailOptions = {
-    from: `TalentFlow <${process.env.GMAIL_USER}>`,
+    from: `TalentFlow <${process.env.EMAIL_USER}>`,
     to: email,
     subject: `You're on the TalentFlow Waitlist! 🎉`,
     html: `
