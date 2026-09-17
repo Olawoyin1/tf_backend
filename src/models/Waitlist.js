@@ -19,6 +19,9 @@ const waitlistSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Role/category is required'],
       enum: [
+        'business',
+        'talent',
+        'both',
         'athlete',
         'coach',
         'agent',

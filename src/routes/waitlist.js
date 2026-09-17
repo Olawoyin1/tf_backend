@@ -63,6 +63,15 @@ router.post('/', async (req, res) => {
       });
     }
 
+    // Handle mongoose validation errors
+    if (err.name === 'ValidationError') {
+      const messages = Object.values(err.errors).map((val) => val.message);
+      return res.status(400).json({
+        success: false,
+        message: messages.join(', '),
+      });
+    }
+
     return res.status(500).json({
       success: false,
       message: 'Something went wrong. Please try again.',
