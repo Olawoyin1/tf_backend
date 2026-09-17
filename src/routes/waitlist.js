@@ -83,11 +83,17 @@ router.post('/', async (req, res) => {
 // GET /api/waitlist/admin — Secure route to fetch all registrations
 router.get('/admin', async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
+    const adminEmail = req.headers['x-admin-email'];
+    const adminPassword = req.headers['x-admin-password'];
     
-    // Check password (passed as Bearer token or raw password in Authorization header)
-    if (!authHeader || authHeader.replace('Bearer ', '') !== process.env.ADMIN_PASSWORD) {
-      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    // Check email and password
+    if (
+      !adminEmail || 
+      !adminPassword || 
+      adminEmail.toLowerCase() !== process.env.ADMIN_EMAIL.toLowerCase() || 
+      adminPassword !== process.env.ADMIN_PASSWORD
+    ) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
     const entries = await Waitlist.find().sort({ position: 1 });
