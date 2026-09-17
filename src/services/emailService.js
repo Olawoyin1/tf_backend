@@ -1,7 +1,5 @@
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 /**
  * Send a confirmation email to a new waitlist registrant.
  * @param {Object} params
@@ -10,6 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
  * @param {number} params.position
  */
 async function sendConfirmationEmail({ fullName, email, position }) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const firstName = fullName.split(' ')[0];
 
   const { data, error } = await resend.emails.send({
