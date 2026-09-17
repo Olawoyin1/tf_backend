@@ -15,40 +15,15 @@ const waitlistSchema = new mongoose.Schema(
       trim: true,
       match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
     },
-    role: {
+    interest: {
       type: String,
-      required: [true, 'Role/category is required'],
-      enum: [
-        'business',
-        'talent',
-        'both',
-        'practising',
-        'athlete',
-        'coach',
-        'agent',
-        'scout',
-        'club',
-        'brand',
-        'journalist',
-        'analyst',
-        'medical',
-        'fan',
-        'other',
-      ],
+      required: [true, 'Interest is required'],
+      enum: ['business', 'talent', 'both', 'practising'],
     },
-    sport: {
+    company: {
       type: String,
       default: null,
       trim: true,
-    },
-    country: {
-      type: String,
-      default: null,
-      trim: true,
-    },
-    referralSource: {
-      type: String,
-      default: null,
     },
     confirmationSent: {
       type: Boolean,

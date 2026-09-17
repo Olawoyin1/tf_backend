@@ -6,13 +6,13 @@ const { sendConfirmationEmail } = require('../services/emailService');
 // POST /api/waitlist — Register a new entry
 router.post('/', async (req, res) => {
   try {
-    const { fullName, email, role, sport, country, referralSource } = req.body;
+    const { fullName, email, interest, company } = req.body;
 
     // Basic validation
-    if (!fullName || !email || !role) {
+    if (!fullName || !email || !interest) {
       return res.status(400).json({
         success: false,
-        message: 'Full name, email, and role are required.',
+        message: 'Full name, email, and interest are required.',
       });
     }
 
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     }
 
     // Create entry
-    const entry = new Waitlist({ fullName, email, role, sport, country, referralSource });
+    const entry = new Waitlist({ fullName, email, interest, company });
     await entry.save();
 
     // Send confirmation email (non-blocking — don't fail registration if email fails)
