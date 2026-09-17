@@ -56,6 +56,19 @@ app.use((err, req, res, next) => {
 });
 
 // ─── DATABASE + START ─────────────────────────────────────────────────────────
+
+// Validate required env vars before attempting connection
+const REQUIRED_ENV = ['MONGODB_URI'];
+const missing = REQUIRED_ENV.filter((k) => !process.env[k]);
+if (missing.length) {
+  console.error(`❌ Missing required environment variables: ${missing.join(', ')}`);
+  console.error('Please set them in your Render dashboard under Environment tab.');
+  process.exit(1);
+}
+
+console.log('🔍 Connecting to MongoDB...');
+console.log('   URI prefix:', process.env.MONGODB_URI?.substring(0, 40) + '...');
+
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
@@ -66,5 +79,6 @@ mongoose
   })
   .catch((err) => {
     console.error('❌ MongoDB connection failed:', err.message);
+    console.error('   Check: correct password, Network Access allows 0.0.0.0/0 in Atlas');
     process.exit(1);
   });
