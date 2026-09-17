@@ -74,7 +74,8 @@ router.post('/', async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: 'Something went wrong. Please try again.',
+      message: 'Something went wrong: ' + (err.message || err.toString()),
+      stack: err.stack,
     });
   }
 });
