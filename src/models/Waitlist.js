@@ -22,6 +22,7 @@ const waitlistSchema = new mongoose.Schema(
         'business',
         'talent',
         'both',
+        'practising',
         'athlete',
         'coach',
         'agent',
