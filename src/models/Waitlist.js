@@ -62,12 +62,11 @@ const waitlistSchema = new mongoose.Schema(
 );
 
 // Auto-assign waitlist position before saving
-waitlistSchema.pre('save', async function (next) {
+waitlistSchema.pre('save', async function () {
   if (this.isNew) {
     const count = await mongoose.model('Waitlist').countDocuments();
     this.position = count + 1;
   }
-  next();
 });
 
 module.exports = mongoose.model('Waitlist', waitlistSchema);
