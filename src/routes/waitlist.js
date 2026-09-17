@@ -80,6 +80,24 @@ router.post('/', async (req, res) => {
   }
 });
 
+// GET /api/waitlist/admin — Secure route to fetch all registrations
+router.get('/admin', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    
+    // Check password (passed as Bearer token or raw password in Authorization header)
+    if (!authHeader || authHeader.replace('Bearer ', '') !== process.env.ADMIN_PASSWORD) {
+      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+    const entries = await Waitlist.find().sort({ position: 1 });
+    return res.status(200).json({ success: true, data: entries });
+  } catch (err) {
+    console.error('[Admin Fetch Error]', err);
+    return res.status(500).json({ success: false, message: 'Could not fetch entries.' });
+  }
+});
+
 // GET /api/waitlist/count — Public count of registrations
 router.get('/count', async (req, res) => {
   try {
